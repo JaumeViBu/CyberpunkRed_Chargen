@@ -27,6 +27,7 @@ export default function CharacterViewer(props: {
       </div>
 
       {/* Stats grid */}
+      <h2 class="mb-4">Stats</h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
         <For each={stats()}>
           {([stat, value]) => (
@@ -35,13 +36,6 @@ export default function CharacterViewer(props: {
                 {stat}
               </p>
               <p class="text-2xl font-bold text-neon-pink">{value}</p>
-              {/* Stat bar visualization */}
-              <div class="h-2 mt-1 bg-gray-700 rounded-full overflow-hidden">
-                <div
-                  class="h-full bg-gradient-to-r from-neon-purple to-neon-pink"
-                  style={{ width: `${value * 10}%` }}
-                />
-              </div>
             </div>
           )}
         </For>

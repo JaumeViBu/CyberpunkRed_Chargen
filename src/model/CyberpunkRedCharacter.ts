@@ -1,4 +1,5 @@
 import type { Role } from "../types/CharacterRoles";
+import { RoleSkills, type RoleSkill } from "../types/CharacterRolesSkills";
 import type { DeepPartial } from "../types/DeepPartial";
 
 const ROLES_ARRAY: readonly Role[] = [
@@ -25,6 +26,8 @@ export default class CyberpunkRedCharacter {
   /** The character's role */
   role: Role;
 
+  roleSkill: RoleSkill;
+
   /**
    * The character's core statistics
    * All stats range from 2-10 in Cyberpunk Red
@@ -46,8 +49,8 @@ export default class CyberpunkRedCharacter {
    * Creates a new Cyberpunk Red character
    * @param handle - The character's street name/alias
    */
-  constructor(handle: string, options?: DeepPartial<CyberpunkRedCharacter>) {
-    this.handle = handle;
+  constructor(options?: DeepPartial<CyberpunkRedCharacter>) {
+    this.handle = "";
     // Initialize all stats to the minimum value of 2
     // In Cyberpunk Red, no stat can be lower than 2 at creation
     this.stats = {
@@ -64,7 +67,11 @@ export default class CyberpunkRedCharacter {
     };
     this.name = "";
     this.role = ROLES_ARRAY[Math.floor(Math.random() * ROLES_ARRAY.length)];
+    this.roleSkill = RoleSkills[this.role];
     if (!options) return;
+    if (options.handle) {
+      this.handle = options.handle;
+    }
     if (options.stats) {
       this.stats = { ...this.stats, ...options.stats };
     }
@@ -73,6 +80,7 @@ export default class CyberpunkRedCharacter {
     }
     if (options.role) {
       this.role = options.role;
+      this.roleSkill = RoleSkills[options.role];
     }
   }
 }
